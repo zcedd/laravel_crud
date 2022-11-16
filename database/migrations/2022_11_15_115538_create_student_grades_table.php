@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('student_grades', function (Blueprint $table) {
             $table->id();
-            $table->student_id;
-            $table->teacher_id;
-            $table->string('subject');
-            $table->string('grade');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->string('grade')->nullable();
             $table->timestamps();
         });
     }

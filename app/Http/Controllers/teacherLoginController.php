@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\teacher;
+use App\Models\student;
+use App\Models\studentGrades;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -23,7 +25,9 @@ class teacherLoginController extends Controller
         if($teacher){
             if(hash::check($request->Password, $teacher->password)){
                 $request->session()->put('teacher_id', $teacher->id);
-                return view('teacherDashboard');
+
+                $data = studentGrades::where('teacher_id', '=', Session::get('teacher_id'))->with('student', 'teacher')->get();
+                return view('teacherDashboard', compact('data'));
             }else{
                 return back()->with('failed', 'Password don\'t match.');
             }
@@ -51,6 +55,15 @@ class teacherLoginController extends Controller
         $result = $teacher->save();
 
         if($result){
+            $student_name = student::all();
+            foreach($student_name as $student){
+                $teacher_name = teacher::where('email', '=', $request->Email)->first();
+                $Grade = new studentGrades();
+                $Grade->teacher_id = $teacher_name->id;
+                $Grade->student_id = $student->id;
+                $result2 = $Grade->save();
+
+            }
             return back()->with('success', 'You have succesfully register.');
         }else{
             return back()->with('failed', 'Something went wrong.');
@@ -70,7 +83,7 @@ class teacherLoginController extends Controller
     public function Logout(){
         if(Session::has('teacher_id')){
             Session::pull('teacher_id');
-            return redirect('teacherLogin');
+            return redirect('/Teacher/Login');
         }
     }
 }

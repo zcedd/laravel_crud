@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\studentLoginController;
 use App\Http\Controllers\teacherLoginController;
+use App\Http\Controllers\teacherDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +19,19 @@ use App\Http\Controllers\teacherLoginController;
 Route::get('/', function () {
     return view('studentLogin');
 });
-Route::get('/studentLogin', [studentLoginController::class, 'Login'])->name('studentLogin');
-Route::post('/studentLogin', [studentLoginController::class, 'studentLogin'])->name('student-Login');
-Route::get('/studentRegistration', [studentLoginController::class, 'Registration'])->name('studentRegistration');
-Route::post('/studentRegister', [studentLoginController::class, 'Register'])->name('studentRegister');
-Route::get('/studentDashboard', [studentLoginController::class, 'Dashboard'])->name('studentDashboard');
-Route::get('/studentLogout', [studentLoginController::class, 'Logout'])->name('studentLogout');
+Route::get('/Student/Login', [studentLoginController::class, 'Login'])->name('studentLogin');
+Route::post('/Student', [studentLoginController::class, 'studentLogin'])->name('student-Login');
+Route::get('/Student/Registration', [studentLoginController::class, 'Registration'])->name('studentRegistration');
+Route::post('/Student/Register', [studentLoginController::class, 'Register'])->name('studentRegister');
+Route::get('/Student/Dashboard', [studentLoginController::class, 'Dashboard'])->name('studentDashboard');
+Route::get('/Student/Logout', [studentLoginController::class, 'Logout'])->name('studentLogout');
 
-Route::get('/teacherLogin', [teacherLoginController::class, 'Login'])->name('teacherLogin');
-Route::post('/teacherLogin', [teacherLoginController::class, 'teacherLogin'])->name('teacher-Login');
-Route::get('/teacherRegistration', [teacherLoginController::class, 'Registration'])->name('teacherRegistration');
-Route::post('/teacherRegister', [teacherLoginController::class, 'Register'])->name('teacherRegister');
-Route::get('/teacherDashboard', [teacherLoginController::class, 'Dashboard'])->name('teacherDashboard');
-Route::get('/teacherLogout', [teacherLoginController::class, 'Logout'])->name('teacherLogout');
+Route::get('/Teacher/Login', [teacherLoginController::class, 'Login'])->name('teacherLogin');
+Route::post('/Teacher', [teacherLoginController::class, 'teacherLogin'])->name('teacher-Login');
+Route::get('/Teacher/Registration', [teacherLoginController::class, 'Registration'])->name('teacherRegistration');
+Route::post('/Teacher/Register', [teacherLoginController::class, 'Register'])->name('teacherRegister');
+Route::get('/Teacher/Dashboard', [teacherLoginController::class, 'Dashboard'])->name('teacherDashboard');
+Route::get('/Teacher/Logout', [teacherLoginController::class, 'Logout'])->name('teacherLogout');
+
+Route::post('/Teacher/Edit', [teacherDashboardController::class, 'edit'])->name('edit');
+Route::get('/Teacher/Delete/{id}', [teacherDashboardController::class, 'delete'])->name('delete');

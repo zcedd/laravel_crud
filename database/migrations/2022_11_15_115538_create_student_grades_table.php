@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
-            $table->string('grade')->nullable();
+            $table->integer('grade')->nullable();
             $table->timestamps();
         });
     }

@@ -21,47 +21,14 @@
                 <th>{{$datas->student->name}}</th>
                 <th>{{$datas->grade}}</th>
                 <th>
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" data-edit-id="{{ $datas->id }}" data-edit-name="{{ $datas->student->name }}" data-edit-grade="{{ $datas->grade }}">Edit</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id="{{ $datas->id }}" data-delete-name="{{ $datas->student->name }}">Delete</button>
+                    <button id="edit-grade" type="button" class="btn btn-secondary edit-grade" data-bs-toggle="modal" data-bs-target="#editModal{{$datas->id}}" data-edit-id="{{ $datas->id }}" data-edit-name="{{ $datas->student->name }}" data-edit-grade="{{ $datas->grade }}">Edit</button>
+                    <button id="delete-grade"type="button" class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal{{$datas->id}}" data-delete-id="{{ $datas->id }}" data-delete-name="{{ $datas->student->name }}">Delete</button>
                 </th>
             </tr>
-
-            <!-- Modal -->
+            @include('Modals.deleteModal')
+            @include('Modals.editModal')
             @endforeach
         </tbody>
     </table>
 </div>
-@stop
-
-@section('modals')
-    @include('Modals.deleteModal')
-    @include('Modals.editModal')
-@stop
-
-@section('script')
-<script>
-    const editModal = document.getElementById('editModal')
-    editModal.addEventListener('show.bs.modal', event => {
-        const button = event.relatedTarget
-        const name = button.getAttribute('data-edit-name');
-        const id = button.getAttribute('data-edit-id');
-        const grade = button.getAttribute('data-edit-grade');
-
-        const modalTitle = editModal.querySelector('.modal-title');
-        const modalBodyInput = editModal.querySelector('.modal-body input');
-
-        modalTitle.textContent = `Edit grade for ${name}`;
-        modalBodyInput.value = grade;
-    })
-
-    const deleteModal = document.getElementById('deleteModal')
-    deleteModal.addEventListener('show.bs.modal', event => {
-        const button = event.relatedTarget
-        const name = button.getAttribute('data-delete-name');
-        const id = button.getAttribute('data-delete-id');
-        const grade = button.getAttribute('data-delete-grade');
-        const modalTitle = deleteModal.querySelector('.modal-title');
-        modalTitle.textContent = `Delete grade for ${name}`;
-    })
-</script>
 @stop

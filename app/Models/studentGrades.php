@@ -20,4 +20,6 @@ class studentGrades extends Model
     {
         return $this->belongsTo(teacher::class);
     }
+
+    protected $fillable = ['student_id', 'teacher_id', 'grade'];
 }

@@ -33,5 +33,5 @@ Route::post('/Teacher/Register', [teacherLoginController::class, 'Register'])->n
 Route::get('/Teacher/Dashboard', [teacherLoginController::class, 'Dashboard'])->name('teacherDashboard');
 Route::get('/Teacher/Logout', [teacherLoginController::class, 'Logout'])->name('teacherLogout');
 
-Route::post('/Teacher/Edit', [teacherDashboardController::class, 'edit'])->name('edit');
+Route::post('/Teacher/Edit/{id}', [teacherDashboardController::class, 'edit'])->name('edit');
 Route::get('/Teacher/Delete/{id}', [teacherDashboardController::class, 'delete'])->name('delete');

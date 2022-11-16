@@ -71,10 +71,9 @@ class teacherLoginController extends Controller
     }
 
     public function Dashboard(){
-        $data = array();
         if(Session::has('teacher_id')){
-            $data = teacher::where('id', '=', Session::get('teacher_id'));
-            return view('teacherDashboard')->with(compact('data'));
+            $data = studentGrades::where('teacher_id', '=', Session::get('teacher_id'))->with('student', 'teacher')->get();
+            return view('teacherDashboard', compact('data'));
         }else{
             return view('teacherLogin');
         }
